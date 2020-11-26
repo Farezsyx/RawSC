@@ -365,12 +365,14 @@ public class NilaiMakul extends javax.swing.JFrame {
             tabel.addColumn("NILAI");
 
         try{
-            String sql="select nm.nim, nama, makul, nilai "
-                    + "from nilaimakul nm, mahasiswa mhs WHERE nm.nim like '%"+txtcari.getText()+"%'"
-                    + "or nama like '%"+txtcari.getText()+"%'"
-                    + "or makul like '%"+txtcari.getText()+"%'"
-                    + "or nilai like '%"+txtcari.getText()+"%'"
-                    + "AND mhs.nim=nm.nim";
+            String sql="SELECT nm.nim, nama, makul, nilai "
+                    + "FROM nilaimakul nm "
+                    + "LEFT JOIN mahasiswa mhs "
+                    + "ON mhs.nim=nm.nim "
+                    + "WHERE nm.nim LIKE '%"+txtcari.getText()+"%' "
+                    + "OR nama LIKE '%"+txtcari.getText()+"%' "
+                    + "OR makul LIKE '%"+txtcari.getText()+"%' "
+                    + "OR nilai LIKE '%"+txtcari.getText()+"%'";
             ResultSet rs=statement.executeQuery(sql);
             while(rs.next()){
                 tabel.addRow(new Object[]{
